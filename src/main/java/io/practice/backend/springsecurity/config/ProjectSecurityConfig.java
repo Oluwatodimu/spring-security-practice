@@ -51,7 +51,7 @@ public class ProjectSecurityConfig {
                 .authorizeHttpRequests()
                 .requestMatchers("/api/v1/account").hasRole("USER")
                 .requestMatchers("/api/v1/balance").hasAnyRole("USER", "ADMIN")
-                .requestMatchers("/api/v1/loans").hasRole("USER")
+                .requestMatchers("/api/v1/loans").authenticated()
                 .requestMatchers("/api/v1/cards").hasRole("USER")
                 .requestMatchers("/api/v1/user").authenticated()
                 .requestMatchers("/api/v1/notice", "/api/v1/contact", "/api/v1/register").permitAll()

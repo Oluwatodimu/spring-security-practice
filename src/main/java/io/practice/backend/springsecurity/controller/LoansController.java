@@ -3,8 +3,7 @@ package io.practice.backend.springsecurity.controller;
 import io.practice.backend.springsecurity.model.Loans;
 import io.practice.backend.springsecurity.repository.LoanRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -20,6 +19,7 @@ public class LoansController {
     private LoanRepository loanRepository;
 
     @GetMapping(value = "/loans")
+    @PostAuthorize("hasRole('USER')")
     public List<Loans> getLoanDetails(@RequestParam int id) {
         List<Loans> loans = loanRepository.findByCustomerIdOrderByStartDtDesc(id);
         if (loans != null ) {
