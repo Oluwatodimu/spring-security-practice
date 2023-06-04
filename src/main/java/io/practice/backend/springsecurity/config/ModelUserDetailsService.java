@@ -14,25 +14,25 @@ import org.springframework.stereotype.Component;
 import java.util.ArrayList;
 import java.util.List;
 
-@Component
-public class ModelUserDetailsService implements UserDetailsService {
-
-    @Autowired
-    private CustomerRepository customerRepository;
-
-    @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        String userName, password = null;
-        List<GrantedAuthority> authorities = null;
-        List<Customer> customer = customerRepository.findByEmail(username);
-        if (customer.size() == 0) {
-            throw new UsernameNotFoundException("User details not found for the user : " + username);
-        } else{
-            userName = customer.get(0).getEmail();
-            password = customer.get(0).getPwd();
-            authorities = new ArrayList<>();
-            authorities.add(new SimpleGrantedAuthority(customer.get(0).getRole()));
-        }
-        return new User(username,password,authorities);
-    }
-}
+//@Component
+//public class ModelUserDetailsService implements UserDetailsService {
+//
+//    @Autowired
+//    private CustomerRepository customerRepository;
+//
+//    @Override
+//    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+//        String userName, password = null;
+//        List<GrantedAuthority> authorities = null;
+//        List<Customer> customer = customerRepository.findByEmail(username);
+//        if (customer.size() == 0) {
+//            throw new UsernameNotFoundException("User details not found for the user : " + username);
+//        } else{
+//            userName = customer.get(0).getEmail();
+//            password = customer.get(0).getPwd();
+//            authorities = new ArrayList<>();
+//            authorities.add(new SimpleGrantedAuthority(customer.get(0).getRole()));
+//        }
+//        return new User(username,password,authorities);
+//    }
+//}

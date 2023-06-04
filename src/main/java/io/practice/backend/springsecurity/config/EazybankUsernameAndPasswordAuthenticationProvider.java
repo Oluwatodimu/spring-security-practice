@@ -20,46 +20,46 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-@Component
-public class EazybankUsernameAndPasswordAuthenticationProvider implements AuthenticationProvider  {
-
-    @Autowired
-    private CustomerRepository customerRepository;
-
-    @Autowired
-    private UserDetailsService userDetailsService;
-
-    @Autowired
-    private PasswordEncoder passwordEncoder;
-
-    @Override
-    public Authentication authenticate(Authentication authentication) throws AuthenticationException {
-        String username = authentication.getName();
-        String pwd = authentication.getCredentials().toString();
-//        UserDetails userDetails = this.userDetailsService.loadUserByUsername(username);
-        List<Customer> customer = customerRepository.findByEmail(username);
-        if (customer.size() > 0) {
-            if (passwordEncoder.matches(pwd, customer.get(0).getPwd())) {
-                List<GrantedAuthority> authorities = getGrantedAuthorities(customer.get(0).getAuthorities());
-                return new UsernamePasswordAuthenticationToken(username, pwd, authorities);
-            } else {
-                throw new BadCredentialsException("Invalid password!");
-            }
-        }else {
-            throw new BadCredentialsException("No user registered with this details!");
-        }
-    }
-
-    private List<GrantedAuthority> getGrantedAuthorities(Set<Authority> authorities) {
-        List<GrantedAuthority> grantedAuthorities = new ArrayList<>();
-        for (Authority authority : authorities) {
-            grantedAuthorities.add(new SimpleGrantedAuthority(authority.getName()));
-        }
-        return grantedAuthorities;
-    }
-
-    @Override
-    public boolean supports(Class<?> authentication) {
-        return UsernamePasswordAuthenticationToken.class.isAssignableFrom(authentication);
-    }
-}
+//@Component
+//public class EazybankUsernameAndPasswordAuthenticationProvider implements AuthenticationProvider  {
+//
+//    @Autowired
+//    private CustomerRepository customerRepository;
+//
+//    @Autowired
+//    private UserDetailsService userDetailsService;
+//
+//    @Autowired
+//    private PasswordEncoder passwordEncoder;
+//
+//    @Override
+//    public Authentication authenticate(Authentication authentication) throws AuthenticationException {
+//        String username = authentication.getName();
+//        String pwd = authentication.getCredentials().toString();
+////        UserDetails userDetails = this.userDetailsService.loadUserByUsername(username);
+//        List<Customer> customer = customerRepository.findByEmail(username);
+//        if (customer.size() > 0) {
+//            if (passwordEncoder.matches(pwd, customer.get(0).getPwd())) {
+//                List<GrantedAuthority> authorities = getGrantedAuthorities(customer.get(0).getAuthorities());
+//                return new UsernamePasswordAuthenticationToken(username, pwd, authorities);
+//            } else {
+//                throw new BadCredentialsException("Invalid password!");
+//            }
+//        }else {
+//            throw new BadCredentialsException("No user registered with this details!");
+//        }
+//    }
+//
+//    private List<GrantedAuthority> getGrantedAuthorities(Set<Authority> authorities) {
+//        List<GrantedAuthority> grantedAuthorities = new ArrayList<>();
+//        for (Authority authority : authorities) {
+//            grantedAuthorities.add(new SimpleGrantedAuthority(authority.getName()));
+//        }
+//        return grantedAuthorities;
+//    }
+//
+//    @Override
+//    public boolean supports(Class<?> authentication) {
+//        return UsernamePasswordAuthenticationToken.class.isAssignableFrom(authentication);
+//    }
+//}
